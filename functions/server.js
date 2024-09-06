@@ -9,80 +9,137 @@ app.use(cors());
 
 const router = express.Router();
 
+
 router.get('/api/productos', (req, res) => {
-  const filePath = path.resolve('data/productos.json');
+  const filePath = path.resolve(__dirname, 'data/productos.json');
+
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
+      console.error(err);
       return res.status(500).json({ error: 'Error al leer el archivo de productos' });
     }
-    res.json(JSON.parse(data));
+    try {
+      const productos = JSON.parse(data);
+      res.json(productos);
+    } catch (parseError) {
+      console.error(parseError);
+      res.status(500).json({ error: 'Error al procesar el archivo de productos' });
+    }
   });
 });
 
 router.get('/api/comentarios', (req, res) => {
-  const filePath = path.resolve('data/comentarios.json');
+  const filePath = path.resolve(__dirname, 'data/comentarios.json');
+
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
+      console.error(err);
       return res.status(500).json({ error: 'Error al leer el archivo de comentarios' });
     }
-    res.json(JSON.parse(data));
+    try {
+      const comentarios = JSON.parse(data);
+      res.json(comentarios);
+    } catch (parseError) {
+      console.error(parseError);
+      res.status(500).json({ error: 'Error al procesar el archivo de comentarios' });
+    }
   });
 });
 
 router.get('/api/categorias', (req, res) => {
-  const filePath = path.resolve('data/categorias.json');
+  const filePath = path.resolve(__dirname, 'data/categorias.json');
+
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de categorías' });
+      console.error(err);
+      return res.status(500).json({ error: 'Error al leer el archivo de categorias' });
     }
-    res.json(JSON.parse(data));
+    try {
+      const categorias = JSON.parse(data);
+      res.json(categorias);
+    } catch (parseError) {
+      console.error(parseError);
+      res.status(500).json({ error: 'Error al procesar el archivo de categorias' });
+    }
   });
 });
 
 router.get('/api/bodegas', (req, res) => {
-  const filePath = path.resolve('data/bodegas.json');
+  const filePath = path.resolve(__dirname, 'data/bodegas.json');
+
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
+      console.error(err);
       return res.status(500).json({ error: 'Error al leer el archivo de bodegas' });
     }
-    res.json(JSON.parse(data));
+    try {
+      const bodegas = JSON.parse(data);
+      res.json(bodegas);
+    } catch (parseError) {
+      console.error(parseError);
+      res.status(500).json({ error: 'Error al procesar el archivo de bodegas' });
+    }
   });
 });
 
-router.get('/api/detalle-ventas', (req, res) => {
-  const filePath = path.resolve('data/detalle_ventas.json');
+router.get('/api/detalle-venta', (req, res) => {
+  const filePath = path.resolve(__dirname, 'data/detalle_venta.json');
+
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de detalles de venta' });
+      console.error(err);
+      return res.status(500).json({ error: 'Error al leer el archivo de detalle-venta' });
     }
-    res.json(JSON.parse(data));
+    try {
+      const detalle_venta = JSON.parse(data);
+      res.json(detalle_venta);
+    } catch (parseError) {
+      console.error(parseError);
+      res.status(500).json({ error: 'Error al procesar el archivo de detalle-venta' });
+    }
   });
 });
 
-router.get('/api/detalle-compras', (req, res) => {
-  const filePath = path.resolve('data/detalle_compras.json');
+router.get('/api/detalle-compra', (req, res) => {
+  const filePath = path.resolve(__dirname, 'data/detalle_compra.json');
+
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de detalles de compra' });
+      console.error(err);
+      return res.status(500).json({ error: 'Error al leer el archivo de detalle-compra' });
     }
-    res.json(JSON.parse(data));
+    try {
+      const detalle_compra = JSON.parse(data);
+      res.json(detalle_compra);
+    } catch (parseError) {
+      console.error(parseError);
+      res.status(500).json({ error: 'Error al procesar el archivo de detalle-compra' });
+    }
   });
 });
 
 router.get('/api/usuarios', (req, res) => {
-  const filePath = path.resolve('data/usuarios.json');
+  const filePath = path.resolve(__dirname, 'data/usuarios.json');
+
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
+      console.error(err);
       return res.status(500).json({ error: 'Error al leer el archivo de usuarios' });
     }
-    res.json(JSON.parse(data));
+    try {
+      const usuarios = JSON.parse(data);
+      res.json(usuarios);
+    } catch (parseError) {
+      console.error(parseError);
+      res.status(500).json({ error: 'Error al procesar el archivo de usuarios' });
+    }
   });
 });
 
 //METODOS POSTS
 
 router.post('/api/productos', (req, res) => {
-  const filePath = path.resolve('data/productos.json');
+  const filePath = path.resolve('productos.json');
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       return res.status(500).json({ error: 'Error al leer el archivo de productos' });
