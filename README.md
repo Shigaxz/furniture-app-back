@@ -10,5 +10,5 @@ https://forniture-api.netlify.app/.netlify/functions/server/api/usuarios
 https://forniture-api.netlify.app/.netlify/functions/server/api/bodegas
 https://forniture-api.netlify.app/.netlify/functions/server/api/comentarios
 https://forniture-api.netlify.app/.netlify/functions/server/api/categorias
-https://forniture-api.netlify.app/.netlify/functions/server/api/detalle-venta
-https://forniture-api.netlify.app/.netlify/functions/server/api/detalle-compra
+https://forniture-api.netlify.app/.netlify/functions/server/api/detalle-ventas
+https://forniture-api.netlify.app/.netlify/functions/server/api/detalle-compras
