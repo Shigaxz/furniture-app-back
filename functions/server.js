@@ -1,282 +1,112 @@
-import express from 'express';
-import cors from 'cors';
-import serverless from 'serverless-http';
-import fs from 'fs';
-import path from 'path';
+import express from "express";
+import cors from "cors";
+import serverless from "serverless-http";
+
+import { bodegas } from "./bodegas.js";
+import { categorias } from "./categorias.js";
+import { comentarios } from "./comentarios.js";
+import { detalleVenta } from "./detalleVentas.js";
+import { detalleCompra } from "./detalleCompras.js";
+import { productos } from "./productos.js";
+import { usuarios } from "./usuarios.js";
 
 var app = express();
 app.use(cors());
+app.use(express.json());
 
 const router = express.Router();
 
+// Metodo GET
+export const handleGet = (array, req, res) => {
+  res.json(array);
+};
+// Metodo GET:Id
+export const handleGetId = (array, req, res) => {
+  const { id } = req.params;
+  const index = array.find((index) => index.id === parseInt(id));
 
-router.get('/api/productos', (req, res) => {
-  const filePath = path.resolve(__dirname, 'data/productos.json');
+  if (index) {
+    res.json(index);
+  } else {
+    res.status(404).json({ error: "No se econtro ningun elemento" });
+  }
+};
+// Metodo POST
+export const handlePost = (array, req, res) => {
+  const newIndex = req.body;
+  const maxId = array.length > 0 ? Math.max(...array.map((e) => e.id)) : 0;
+  newIndex.id = maxId + 1;
+  array.push(newIndex);
+  res.status(201).json(newIndex);
+};
+// Metodo DELETE
+export const handleDelete = (array, req, res) => {
+  const { id } = req.params;
+  const index = array.findIndex((item) => item.id === parseInt(id));
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Error al leer el archivo de productos' });
-    }
-    try {
-      const productos = JSON.parse(data);
-      res.json(productos);
-    } catch (parseError) {
-      console.error(parseError);
-      res.status(500).json({ error: 'Error al procesar el archivo de productos' });
-    }
-  });
-});
+  if (index !== -1) {
+    const [deletedItem] = array.splice(index, 1);
+    res.json(deletedItem);
+  } else {
+    res.status(404).json({ error: "No se econtro ningun elemento" });
+  }
+};
+// Metodo PUT
+export const handlePut = (array, req, res) => {
+  const { id } = req.params;
+  const index = array.findIndex((item) => item.id === parseInt(id));
 
-router.get('/api/comentarios', (req, res) => {
-  const filePath = path.resolve(__dirname, 'data/comentarios.json');
+  if (index !== -1) {
+    const updatedItem = { ...array[index], ...req.body, id: parseInt(id) };
+    array[index] = updatedItem;
+    res.json(updatedItem);
+  } else {
+    res.status(404).json({ error: "No se econtro ningun elemento" });
+  }
+};
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Error al leer el archivo de comentarios' });
-    }
-    try {
-      const comentarios = JSON.parse(data);
-      res.json(comentarios);
-    } catch (parseError) {
-      console.error(parseError);
-      res.status(500).json({ error: 'Error al procesar el archivo de comentarios' });
-    }
-  });
-});
+// Creacion de rutas para cada API
+router.get("/api/productos", (req, res) => handleGet(productos, req, res));
+router.post("/api/productos", (req, res) => handlePost(productos, req, res));
+router.delete("/api/productos/:id", (req, res) => handleDelete(productos, req, res));
+router.put('/api/productos/:id', (req, res) => handlePut(productos, req, res));
+router.get('/api/productos/:id', (req, res) => handleGetId(productos, req, res));
 
-router.get('/api/categorias', (req, res) => {
-  const filePath = path.resolve(__dirname, 'data/categorias.json');
+router.get("/api/comentarios", (req, res) => handleGet(comentarios, req, res));
+router.post("/api/comentarios", (req, res) => handlePost(comentarios, req, res));
+router.delete("/api/comentarios/:id", (req, res) =>handleDelete(comentarios, req, res));
+router.put('/api/comentarios/:id', (req, res) => handlePut(comentarios, req, res));
+router.get('/api/comentarios/:id', (req, res) => handleGetId(comentarios, req, res));
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Error al leer el archivo de categorias' });
-    }
-    try {
-      const categorias = JSON.parse(data);
-      res.json(categorias);
-    } catch (parseError) {
-      console.error(parseError);
-      res.status(500).json({ error: 'Error al procesar el archivo de categorias' });
-    }
-  });
-});
+router.get("/api/bodegas", (req, res) => handleGet(bodegas, req, res));
+router.post("/api/bodegas", (req, res) => handlePost(bodegas, req, res));
+router.delete("/api/bodegas/:id", (req, res) => handleDelete(bodegas, req, res));
+router.put('/api/bodegas/:id', (req, res) => handlePut(bodegas, req, res));
+router.get('/api/bodegas/:id', (req, res) => handleGetId(bodegas, req, res));
 
-router.get('/api/bodegas', (req, res) => {
-  const filePath = path.resolve(__dirname, 'data/bodegas.json');
+router.get("/api/categorias", (req, res) => handleGet(categorias, req, res));
+router.post("/api/categorias", (req, res) => handlePost(categorias, req, res));
+router.delete("/api/categorias/:id", (req, res) => handleDelete(categorias, req, res));
+router.put('/api/categorias/:id', (req, res) => handlePut(categorias, req, res));
+router.get('/api/categorias/:id', (req, res) => handleGetId(categorias, req, res));
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Error al leer el archivo de bodegas' });
-    }
-    try {
-      const bodegas = JSON.parse(data);
-      res.json(bodegas);
-    } catch (parseError) {
-      console.error(parseError);
-      res.status(500).json({ error: 'Error al procesar el archivo de bodegas' });
-    }
-  });
-});
+router.get("/api/usuarios", (req, res) => handleGet(usuarios, req, res));
+router.post("/api/usuarios", (req, res) => handlePost(usuarios, req, res));
+router.delete("/api/usuarios/:id", (req, res) => handleDelete(usuarios, req, res));
+router.put('/api/usuarios/:id', (req, res) => handlePut(usuarios, req, res));
+router.get('/api/usuarios/:id', (req, res) => handleGetId(usuarios, req, res));
 
-router.get('/api/detalle-venta', (req, res) => {
-  const filePath = path.resolve(__dirname, 'data/detalle_venta.json');
+router.get("/api/detalle-venta", (req, res) => handleGet(detalleVenta, req, res));
+router.post("/api/detalle-venta", (req, res) => handlePost(detalleVenta, req, res));
+router.delete("/api/detalle-venta/:id", (req, res) => handleDelete(detalleVenta, req, res));
+router.put('/api/detalle-venta/:id', (req, res) => handlePut(detalleVenta, req, res));
+router.get('/api/detalle-venta/:id', (req, res) => handleGetId(detalleVenta, req, res));
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Error al leer el archivo de detalle-venta' });
-    }
-    try {
-      const detalle_venta = JSON.parse(data);
-      res.json(detalle_venta);
-    } catch (parseError) {
-      console.error(parseError);
-      res.status(500).json({ error: 'Error al procesar el archivo de detalle-venta' });
-    }
-  });
-});
+router.get("/api/detalle-compra", (req, res) => handleGet(detalleCompra, req, res));
+router.post("/api/detalle-compra", (req, res) =>handlePost(detalleCompra, req, res));
+router.delete("/api/detalle-compra/:id", (req, res) => handleDelete(detalleCompra, req, res));
+router.put('/api/detalle-compra/:id', (req, res) => handlePut(detalleCompra, req, res));
+router.get('/api/detalle-compra/:id', (req, res) => handleGetId(detalleVenta, req, res));
 
-router.get('/api/detalle-compra', (req, res) => {
-  const filePath = path.resolve(__dirname, 'data/detalle_compra.json');
-
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Error al leer el archivo de detalle-compra' });
-    }
-    try {
-      const detalle_compra = JSON.parse(data);
-      res.json(detalle_compra);
-    } catch (parseError) {
-      console.error(parseError);
-      res.status(500).json({ error: 'Error al procesar el archivo de detalle-compra' });
-    }
-  });
-});
-
-router.get('/api/usuarios', (req, res) => {
-  const filePath = path.resolve(__dirname, 'data/usuarios.json');
-
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Error al leer el archivo de usuarios' });
-    }
-    try {
-      const usuarios = JSON.parse(data);
-      res.json(usuarios);
-    } catch (parseError) {
-      console.error(parseError);
-      res.status(500).json({ error: 'Error al procesar el archivo de usuarios' });
-    }
-  });
-});
-
-//METODOS POSTS
-
-router.post('/api/productos', (req, res) => {
-  const filePath = path.resolve('productos.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de productos' });
-    }
-
-    const products = JSON.parse(data);
-    const newProduct = req.body;
-    products.push(newProduct);
-
-    fs.writeFile(filePath, JSON.stringify(products, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error al guardar el nuevo producto' });
-      }
-      res.status(201).json(newProduct);
-    });
-  });
-});
-
-router.post('/api/comentarios', (req, res) => {
-  const filePath = path.resolve('data/comentarios.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de comentarios' });
-    }
-
-    const comments = JSON.parse(data);
-    const newComment = req.body;
-    comments.push(newComment);
-
-    fs.writeFile(filePath, JSON.stringify(comments, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error al guardar el nuevo comentario' });
-      }
-      res.status(201).json(newComment);
-    });
-  });
-});
-
-router.post('/api/categorias', (req, res) => {
-  const filePath = path.resolve('data/categorias.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de categorías' });
-    }
-
-    const categories = JSON.parse(data);
-    const newCategory = req.body;
-    categories.push(newCategory);
-
-    fs.writeFile(filePath, JSON.stringify(categories, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error al guardar la nueva categoría' });
-      }
-      res.status(201).json(newCategory);
-    });
-  });
-});
-
-router.post('/api/bodegas', (req, res) => {
-  const filePath = path.resolve('data/bodegas.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de bodegas' });
-    }
-
-    const warehouses = JSON.parse(data);
-    const newWarehouse = req.body;
-    warehouses.push(newWarehouse);
-
-    fs.writeFile(filePath, JSON.stringify(warehouses, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error al guardar la nueva bodega' });
-      }
-      res.status(201).json(newWarehouse);
-    });
-  });
-});
-
-router.post('/api/detalle-venta', (req, res) => {
-  const filePath = path.resolve('data/detalle_venta.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de detalles de venta' });
-    }
-
-    const salesDetails = JSON.parse(data);
-    const newSaleDetail = req.body;
-    salesDetails.push(newSaleDetail);
-
-    fs.writeFile(filePath, JSON.stringify(salesDetails, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error al guardar el nuevo detalle de venta' });
-      }
-      res.status(201).json(newSaleDetail);
-    });
-  });
-});
-
-router.post('/api/detalle-compra', (req, res) => {
-  const filePath = path.resolve('data/detalle_compra.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de detalles de compra' });
-    }
-
-    const purchasesDetails = JSON.parse(data);
-    const newPurchaseDetail = req.body;
-    purchasesDetails.push(newPurchaseDetail);
-
-    fs.writeFile(filePath, JSON.stringify(purchasesDetails, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error al guardar el nuevo detalle de compra' });
-      }
-      res.status(201).json(newPurchaseDetail);
-    });
-  });
-});
-
-router.post('/api/usuarios', (req, res) => {
-  const filePath = path.resolve('data/users.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo de usuarios' });
-    }
-
-    const users = JSON.parse(data);
-    const newUser = req.body;
-    users.push(newUser);
-
-    fs.writeFile(filePath, JSON.stringify(users, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error al guardar el nuevo usuario' });
-      }
-      res.status(201).json(newUser);
-    });
-  });
-});
-
-app.use('/.netlify/functions/server', router);
+app.use("/.netlify/functions/server", router);
 export const handler = serverless(app);

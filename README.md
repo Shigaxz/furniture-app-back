@@ -1,7 +1,7 @@
 # NODE JS API
 
-API utilizada como back-end simple para proyecto de furniture-app
-Horiendata para ser utilizada siendo hosteada y no de forma local
+API facil, rapida y sensilla creada con express, serverless-http y cors.
+utilizada para el back-end de el proyecto Forniture App.
 
 Si es que sigue activa estos links deberian redireccionar a los datos:
 
