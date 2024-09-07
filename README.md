@@ -5,10 +5,10 @@ utilizada para el back-end de el proyecto Forniture App.
 
 Si es que sigue activa estos links deberian redireccionar a los datos:
 
-https://galaxy-music-apirest.netlify.app/.netlify/functions/server/api/productos
-https://galaxy-music-apirest.netlify.app/.netlify/functions/server/api/usuarios
-https://galaxy-music-apirest.netlify.app/.netlify/functions/server/api/bodegas
-https://galaxy-music-apirest.netlify.app/.netlify/functions/server/api/comentarios
-https://galaxy-music-apirest.netlify.app/.netlify/functions/server/api/categorias
-https://galaxy-music-apirest.netlify.app/.netlify/functions/server/api/detalle-venta
-https://galaxy-music-apirest.netlify.app/.netlify/functions/server/api/detalle-compra
+https://forniture-api.netlify.app/.netlify/functions/server/api/productos
+https://forniture-api.netlify.app/.netlify/functions/server/api/usuarios
+https://forniture-api.netlify.app/.netlify/functions/server/api/bodegas
+https://forniture-api.netlify.app/.netlify/functions/server/api/comentarios
+https://forniture-api.netlify.app/.netlify/functions/server/api/categorias
+https://forniture-api.netlify.app/.netlify/functions/server/api/detalle-venta
+https://forniture-api.netlify.app/.netlify/functions/server/api/detalle-compra

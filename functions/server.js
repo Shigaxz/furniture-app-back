@@ -5,8 +5,8 @@ import serverless from "serverless-http";
 import { bodegas } from "./bodegas.js";
 import { categorias } from "./categorias.js";
 import { comentarios } from "./comentarios.js";
-import { detalleVenta } from "./detalleVentas.js";
-import { detalleCompra } from "./detalleCompras.js";
+import { detalleVentas } from "./detalleVentas.js";
+import { detalleCompras } from "./detalleCompras.js";
 import { productos } from "./productos.js";
 import { usuarios } from "./usuarios.js";
 
@@ -96,17 +96,17 @@ router.delete("/api/usuarios/:id", (req, res) => handleDelete(usuarios, req, res
 router.put('/api/usuarios/:id', (req, res) => handlePut(usuarios, req, res));
 router.get('/api/usuarios/:id', (req, res) => handleGetId(usuarios, req, res));
 
-router.get("/api/detalle-venta", (req, res) => handleGet(detalleVenta, req, res));
-router.post("/api/detalle-venta", (req, res) => handlePost(detalleVenta, req, res));
-router.delete("/api/detalle-venta/:id", (req, res) => handleDelete(detalleVenta, req, res));
-router.put('/api/detalle-venta/:id', (req, res) => handlePut(detalleVenta, req, res));
-router.get('/api/detalle-venta/:id', (req, res) => handleGetId(detalleVenta, req, res));
+router.get("/api/detalle-ventas", (req, res) => handleGet(detalleVentas, req, res));
+router.post("/api/detalle-ventas", (req, res) => handlePost(detalleVentas, req, res));
+router.delete("/api/detalle-ventas/:id", (req, res) => handleDelete(detalleVentas, req, res));
+router.put('/api/detalle-ventas/:id', (req, res) => handlePut(detalleVentas, req, res));
+router.get('/api/detalle-ventas/:id', (req, res) => handleGetId(detalleVentas, req, res));
 
-router.get("/api/detalle-compra", (req, res) => handleGet(detalleCompra, req, res));
-router.post("/api/detalle-compra", (req, res) =>handlePost(detalleCompra, req, res));
-router.delete("/api/detalle-compra/:id", (req, res) => handleDelete(detalleCompra, req, res));
-router.put('/api/detalle-compra/:id', (req, res) => handlePut(detalleCompra, req, res));
-router.get('/api/detalle-compra/:id', (req, res) => handleGetId(detalleVenta, req, res));
+router.get("/api/detalle-compras", (req, res) => handleGet(detalleCompras, req, res));
+router.post("/api/detalle-compras", (req, res) =>handlePost(detalleCompras, req, res));
+router.delete("/api/detalle-compras/:id", (req, res) => handleDelete(detalleCompras, req, res));
+router.put('/api/detalle-compras/:id', (req, res) => handlePut(detalleCompras, req, res));
+router.get('/api/detalle-compras/:id', (req, res) => handleGetId(detalleCompras, req, res));
 
 app.use("/.netlify/functions/server", router);
 export const handler = serverless(app);

@@ -1,2 +1,2 @@
-export const detalleCompra = [];
+export const detalleCompras = [];
   
