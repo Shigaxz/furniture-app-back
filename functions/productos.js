@@ -24,7 +24,7 @@ export const productos = [
       "Una mesa de centro moderna con espacio de almacenamiento, ideal para tu sala de estar.",
     precio: 70000,
     img: "https://th.bing.com/th/id/OIP.3zvPoeZLlCT5xnI6VNt3DAHaHa?pid=ImgDet&rs=1",
-    stock: 0,
+    stock: 23,
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ export const productos = [
       "Una cama king size con cabecera tapizada y un colchón de lujo para un descanso perfecto.",
     precio: 300000,
     img: "https://th.bing.com/th/id/R.cb94568bef021a98fcfb3a25ad4a5543?rik=h2REQNkzy3bBOA&pid=ImgRaw&r=0&sres=1&sresct=1",
-    stock: 0,
+    stock: 64,
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ export const productos = [
       "Una lámpara de pie elegante con luz regulable para iluminar cualquier rincón de tu hogar.",
     precio: 19000,
     img: "https://www.ikea.com/es/es/images/products/nyfors-lampara-pie-niquelado-blanco__0684442_pe721181_s5.jpg",
-    stock: 0,
+    stock: 21,
   },
   {
     id: 6,
@@ -51,7 +51,7 @@ export const productos = [
       "Una mesa de escritorio espaciosa con cajones para tu oficina en casa o estudio.",
     precio: 85000,
     img: "https://th.bing.com/th/id/R.950b9c08036c2672719f374a3c2410ea?rik=Tqp68rZ4HeBLPA&pid=ImgRaw&r=0",
-    stock: 0,
+    stock: 87,
   },
   {
     id: 7,
@@ -60,7 +60,7 @@ export const productos = [
       "Una estantería de madera maciza con estantes ajustables para tus libros y decoraciones.",
     precio: 120000,
     img: "https://www.elmueble.com/medio/2022/09/30/estanteria-hemnes-blanca-y-madera-de-ikea_edd9fa96_540x540.jpg",
-    stock: 0,
+    stock: 43,
   },
   {
     id: 8,
@@ -69,7 +69,7 @@ export const productos = [
       "Un espejo de pared de gran tamaño con un elegante marco dorado para tu vestíbulo o dormitorio.",
     precio: 23000,
     img: "https://images.gestionaweb.cat/279/pimg-1600-1600/mirall-4.jpg",
-    stock: 0,
+    stock: 12,
   },
   {
     id: 9,
@@ -78,7 +78,7 @@ export const productos = [
       "Una cómoda de dormitorio con amplio espacio de almacenamiento y diseño contemporáneo.",
     precio: 169990,
     img: "https://th.bing.com/th/id/OIP.yg9tTY0ERL4FUZ_UMo1O_AHaHa?pid=ImgDet&rs=1",
-    stock: 0,
+    stock: 43,
   },
   {
     id: 10,
